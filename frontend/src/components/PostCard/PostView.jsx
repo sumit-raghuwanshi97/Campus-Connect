@@ -62,7 +62,9 @@ function  PostView() {
   //on load
   useEffect(() => {
   
-    axios.get(`${baseURl}/posts/getPosts/${postId}`)
+    axios.get(`${baseURl}/posts/getPosts/${postId}`,{
+      withCredentials:true,
+    })
       .then((response) => {
         const post = response.data.post;
         const isBookmarked = response.data.isBookmarked;
@@ -79,7 +81,9 @@ function  PostView() {
       });
        
 
-      axios.get(`${baseURl}/posts/getLikers/${postId}`)
+      axios.get(`${baseURl}/posts/getLikers/${postId}`,{
+        withCredentials:true,
+      })
         .then((response) => {
           const likers = response.data.likers;
           console.log("like -" + response.data.currLike);
@@ -90,7 +94,9 @@ function  PostView() {
         .catch((error) => console.log(error));
 
       
-      axios.get(`${baseURl}/posts/getComment/${postId}`)
+      axios.get(`${baseURl}/posts/getComment/${postId}`,{
+        withCredentials:true,
+      })
         .then((response) => {
           const comments = response.data.comments;
           const orderofcomments = comments.slice().reverse();
@@ -104,7 +110,9 @@ function  PostView() {
   const  onLikeHit = async () =>{
     
     if(like){
-    await axios.get(`${baseURl}/posts/likePost/${postId}`);
+    await axios.get(`${baseURl}/posts/likePost/${postId}`,{
+      withCredentials:true,
+    });
     setCount(count-1);
     setLike(false);
     }
@@ -125,7 +133,9 @@ function  PostView() {
     // else
     // setBookmark(true);
 
-    axios.get(`${baseURl}/posts/bookmarkPost/${postId}`)
+    axios.get(`${baseURl}/posts/bookmarkPost/${postId}`,{
+      withCredentials:true,
+    })
     .then((response)=>{
       console.log(response);
       setBookmark(!(response.data.isBookmarked));

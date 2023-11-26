@@ -15,17 +15,12 @@ const CommentCard = ({comment}) => {
   const[showCommentLikes, setShowCommentLikes] = useState(false);
   const[replyComment , setReplyComment] = useState(false);
 
-  const token = document.cookie.split('; ')
-    .find(cookie => cookie.startsWith('token'));
-
-    const headers = {
-      'authorization' : `${token}`,
-    };
-
   const handleLikeComment = () =>{
     setLike(!like);
     if(like){ setCount(count-1)} else{ setCount(count+1)}
-    axios.get(`${baseURl}/comments/like&unlike/${comment._id}`,{headers});
+    axios.get(`${baseURl}/comments/like&unlike/${comment._id}`,{
+      withCredentials:true,
+    });
   };
 
   const handleCommentReply = () =>{
@@ -35,7 +30,9 @@ const CommentCard = ({comment}) => {
 
   const handleShowCommentLikes = () => {
     setShowCommentLikes(!showCommentLikes);
-    axios.get(`${baseURl}/comments/getLikes/${comment._id}`,{headers})
+    axios.get(`${baseURl}/comments/getLikes/${comment._id}`,{
+      withCredentials:true,
+    })
     .then((response)=>{
      const CommentLikes = response.data.Likedby.likes;
      setCommentLikes(CommentLikes);

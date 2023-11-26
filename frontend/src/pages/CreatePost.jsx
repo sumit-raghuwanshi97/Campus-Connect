@@ -43,10 +43,10 @@ function CreatePost() {
     e.preventDefault();
     
     //getting token from cookies //include this in a function 
-    const token = document.cookie.split('; ')
-    .find(cookie => cookie.startsWith('token'));
+    // const token = document.cookie.split('; ')
+    // .find(cookie => cookie.startsWith('token'));
 
-    console.log(token);
+    // console.log(token);
 
     // const headers = {
     //   'Authorization' : `${token}`,
@@ -55,7 +55,9 @@ function CreatePost() {
     axios.post(`${baseURl}/posts/createPost` , formData , {
       headers:{
         "Content-Type" : "application/json",
+          
       },
+      withCredentials:true,
     }).then((response)=>{
       setShowAlert(true);
     })

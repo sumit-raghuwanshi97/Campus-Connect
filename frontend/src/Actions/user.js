@@ -35,7 +35,9 @@ export const loadUser = () => async (dispatch) => {
         type : "LoadUserRequest",
     });
 
-    const { data } =  await axios.get(`${baseURl}/user/profile/me`);
+    const { data } =  await axios.get(`${baseURl}/user/profile/me`,{
+      withCredentials:true,
+    });
 
     dispatch({
         type : "LoadUserSuccess",
