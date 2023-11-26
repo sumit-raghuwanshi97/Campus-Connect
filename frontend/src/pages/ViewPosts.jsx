@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import FilterPosts from '../components/FilterPosts/FilterPosts';
 import PostCard from '../components/PostCard/PostCard';
 import axios from 'axios';
+const baseURl = "https://campus-connect-server-pi.vercel.app";
+
 
 function ViewPosts() {
   const [posts, setPosts] = useState([]);
@@ -9,7 +11,7 @@ function ViewPosts() {
 
   useEffect(() => {
     //fetching data from our bakend api 
-    axios.get('/posts/getPosts')
+    axios.get(`${baseURl}/posts/getPosts`)
       .then((response) => {
         setPosts(response.data.posts);
       })

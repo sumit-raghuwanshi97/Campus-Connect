@@ -1,4 +1,5 @@
 import axios from 'axios';
+const baseURl = "https://campus-connect-server-pi.vercel.app";
 
 export const loginUser = (email , password) => async (dispatch) => {
     try {
@@ -7,7 +8,7 @@ export const loginUser = (email , password) => async (dispatch) => {
         type:"LoginRequest"
        });
 
-       const { data } = await axios.post('/user/login' , {email , password});
+       const { data } = await axios.post(`${baseURl}/user/login` , {email , password});
 
        dispatch({
         type:"LoginSuccess",
@@ -34,7 +35,7 @@ export const loadUser = () => async (dispatch) => {
         type : "LoadUserRequest",
     });
 
-    const { data } =  await axios.get('https://campus-connect-server-pi.vercel.app/user/profile/me');
+    const { data } =  await axios.get(`${baseURl}/user/profile/me`);
 
     dispatch({
         type : "LoadUserSuccess",

@@ -4,6 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
 import AlertBox from '../components/Popups/AlertBox';
 import { useNavigate } from 'react-router-dom';
+const baseURl = "https://campus-connect-server-pi.vercel.app";
 
 function CreatePost() {
   
@@ -51,7 +52,7 @@ function CreatePost() {
     //   'Authorization' : `${token}`,
     // };
     //sending data to the backend through api 
-    axios.post('/posts/createPost' , formData , {
+    axios.post(`${baseURl}/posts/createPost` , formData , {
       headers:{
         "Content-Type" : "application/json",
       },

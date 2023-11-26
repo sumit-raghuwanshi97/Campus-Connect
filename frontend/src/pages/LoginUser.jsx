@@ -6,6 +6,8 @@ import AlertBox from '../components/Popups/AlertBox';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../Actions/user';
 import { useSelector } from 'react-redux';
+const baseURl = "https://campus-connect-server-pi.vercel.app";
+
 
 function SignInUser() {
   
@@ -44,7 +46,7 @@ function SignInUser() {
     console.log("Login Details Send");
     console.log(formData);
 
-    await axios.post('/user/login',formData)
+    await axios.post(`${baseURl}/user/login`,formData)
     .then( (response)=> {
      
     const success = response.data.success;
