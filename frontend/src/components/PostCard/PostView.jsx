@@ -11,6 +11,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { MdCancel } from "react-icons/md"
 import CommentCard from '../CommentCard/CommentCard';
 import UserList from '../Popups/UserList';
+const baseURl = "https://campus-connect-server-pi.vercel.app";
 
 
 
@@ -27,13 +28,7 @@ function  PostView() {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState('');
   const [showCommentBox, setShowCommentBox] = useState(false);
-  const token = document.cookie.split('; ')
-    .find(cookie => cookie.startsWith('token'));
-
-    const headers = {
-      'authorization' : `${token}`,
-    };
-
+  
     const onCommentHit = () => {
       setShowCommentBox(true);
     }
@@ -52,7 +47,7 @@ function  PostView() {
         likes : [],
       };
 
-      const response = await axios.post('/posts/addComment',postComment,{headers});
+      const response = await axios.post(`${baseURl}/posts/addComment`,postComment);
       
       console.log(response);
       const mpost = {
@@ -67,7 +62,7 @@ function  PostView() {
   //on load
   useEffect(() => {
   
-    axios.get(`/posts/getPosts/${postId}`,{headers})
+    axios.get(`${baseURl}/posts/getPosts/${postId}`)
       .then((response) => {
         const post = response.data.post;
         const isBookmarked = response.data.isBookmarked;
@@ -84,7 +79,7 @@ function  PostView() {
       });
        
 
-      axios.get(`/posts/getLikers/${postId}`,{headers})
+      axios.get(`${baseURl}/posts/getLikers/${postId}`)
         .then((response) => {
           const likers = response.data.likers;
           console.log("like -" + response.data.currLike);
@@ -95,7 +90,7 @@ function  PostView() {
         .catch((error) => console.log(error));
 
       
-      axios.get(`/posts/getComment/${postId}`)
+      axios.get(`${baseURl}/posts/getComment/${postId}`)
         .then((response) => {
           const comments = response.data.comments;
           const orderofcomments = comments.slice().reverse();
@@ -109,13 +104,13 @@ function  PostView() {
   const  onLikeHit = async () =>{
     
     if(like){
-    await axios.get(`/posts/likePost/${postId}`,{headers});
+    await axios.get(`${baseURl}/posts/likePost/${postId}`);
     setCount(count-1);
     setLike(false);
     }
     else{
     console.log(postId);
-    axios.get(`/posts/likePost/${postId}`,{headers});
+    axios.get(`${baseURl}/posts/likePost/${postId}`);
     setCount(count+1);
     setLike(true);
 
@@ -130,7 +125,7 @@ function  PostView() {
     // else
     // setBookmark(true);
 
-    axios.get(`/posts/bookmarkPost/${postId}`,{headers})
+    axios.get(`${baseURl}/posts/bookmarkPost/${postId}`)
     .then((response)=>{
       console.log(response);
       setBookmark(!(response.data.isBookmarked));

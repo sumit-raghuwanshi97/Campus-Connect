@@ -9,7 +9,7 @@ const UserList = ({likers , onClose}) => {
   };
 
   const HandleOnProfileClick = (userId) => {
-    window.open(`http://localhost:3000/user/${userId}`);
+    // window.open(`http://localhost:3000/user/${userId}`);
   };
 
   return (

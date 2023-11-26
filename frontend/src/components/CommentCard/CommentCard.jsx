@@ -6,6 +6,7 @@ import ReplyComment from './ReplyComment';
 import axios from 'axios';
 import UserList from '../Popups/UserList';
 import { Avatar } from '@mui/material';
+const baseURl = "https://campus-connect-server-pi.vercel.app";
 
 const CommentCard = ({comment}) => {
   const[like , setLike] = useState(false);
@@ -24,7 +25,7 @@ const CommentCard = ({comment}) => {
   const handleLikeComment = () =>{
     setLike(!like);
     if(like){ setCount(count-1)} else{ setCount(count+1)}
-    axios.get(`/comments/like&unlike/${comment._id}`,{headers});
+    axios.get(`${baseURl}/comments/like&unlike/${comment._id}`,{headers});
   };
 
   const handleCommentReply = () =>{
@@ -34,7 +35,7 @@ const CommentCard = ({comment}) => {
 
   const handleShowCommentLikes = () => {
     setShowCommentLikes(!showCommentLikes);
-    axios.get(`/comments/getLikes/${comment._id}`,{headers})
+    axios.get(`${baseURl}/comments/getLikes/${comment._id}`,{headers})
     .then((response)=>{
      const CommentLikes = response.data.Likedby.likes;
      setCommentLikes(CommentLikes);
@@ -46,7 +47,7 @@ const CommentCard = ({comment}) => {
 
   useEffect(()=>{
 
-     axios.get(`/comments/getLikes/${comment._id}`,{headers})
+     axios.get(`${baseURl}/comments/getLikes/${comment._id}`,{headers})
     .then((response)=>{
         setLike(response.data.userLike);
         setCount(response.data.Likedby.likes.length);
@@ -88,9 +89,9 @@ const CommentCard = ({comment}) => {
       <span onClick={handleCommentReply} className='font-semibold text-xs mr-3 hover:bg-gray-300 px-1 hover:rounded cursor-pointer'>Reply</span>
     </div>
 
-    {
+    {/* {
     replyComment &&  <ReplyComment comment={comment}/> 
-    }
+    } */}
 
     {
     showCommentLikes && 
