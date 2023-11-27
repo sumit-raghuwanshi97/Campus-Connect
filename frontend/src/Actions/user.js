@@ -1,5 +1,4 @@
-import axios from 'axios';
-const baseURl = "https://campus-connect-server-pi.vercel.app";
+import axios from './axios.config';
 
 export const loginUser = (email , password) => async (dispatch) => {
     try {
@@ -8,7 +7,7 @@ export const loginUser = (email , password) => async (dispatch) => {
         type:"LoginRequest"
        });
 
-       const { data } = await axios.post(`${baseURl}/user/login` , {email , password});
+       const { data } = await axios.post(`/user/login` , {email , password});
 
        dispatch({
         type:"LoginSuccess",
@@ -27,7 +26,6 @@ export const loginUser = (email , password) => async (dispatch) => {
     }
 }
 
-
 export const loadUser = () => async (dispatch) => {
   try {
 
@@ -35,9 +33,7 @@ export const loadUser = () => async (dispatch) => {
         type : "LoadUserRequest",
     });
 
-    const { data } =  await axios.get(`${baseURl}/user/profile/me`,{
-      withCredentials:true,
-    });
+    const { data } =  await axios.get(`/user/profile/me`);
 
     dispatch({
         type : "LoadUserSuccess",

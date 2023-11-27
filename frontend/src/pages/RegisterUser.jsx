@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link , useNavigate } from 'react-router-dom';
-import axios  from 'axios';
+import axios  from '../Actions/axios.config';
 import AlertBox from '../components/Popups/AlertBox';
-const baseURl = "https://campus-connect-server-pi.vercel.app";
 
 function RegisterUser() {
 
@@ -56,7 +55,11 @@ function RegisterUser() {
       };
 
     console.log(postData);
-    const response = await axios.post(`${baseURl}/user/register`,postData);
+    const response = await axios.post(`/user/register`,postData,{
+      headers:{
+        "Content-Type" : "application/json",  
+      },
+    });
     
     console.log(response);
     setMessage(response.data.message);

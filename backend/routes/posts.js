@@ -12,7 +12,7 @@ router.use(bodyParser.json());
 //routes
 router.route('/createPost').post(isAuthenticated,CreatePost);
 router.route('/getPosts').get(getPosts);
-router.route('/getPosts/:id').get(getPosts);
+router.route('/getPosts/:id').get(isAuthenticated,getPosts);
 router.route('/likePost/:id').get(isAuthenticated,likeandUnlikePost);
 router.route('/getLikers/:id').get(isAuthenticated, getLikers);
 router.route('/addComment').post(isAuthenticated, AddComment);

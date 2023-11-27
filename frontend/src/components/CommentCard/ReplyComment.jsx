@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import CommentCard from './CommentCard';
-import  axios from 'axios';
+import  axios from '../../Actions/axios.config';
 import { useSelector } from 'react-redux';
 
 

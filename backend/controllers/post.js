@@ -41,10 +41,12 @@ try {
 exports.getPosts = async (req,res) => {
     try {
     
-        const {id} = req.params
+        const { id } = req.params;
+        console.log(id);
         if(id)
         {
             const post = await Post.findOne({ _id : id });
+            console.log(req.user);
             const isBookmarked = post.bookmark.includes(req.user._id);
 
             return res

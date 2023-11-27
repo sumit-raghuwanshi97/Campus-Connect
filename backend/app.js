@@ -9,8 +9,13 @@ const cors = require('cors');
 
 dotenv.config();
 
+
+const corsOptions = {
+  origin: 'http://localhost:3000', // Replace with your allowed origin
+  credentials: true, // Enable credentials
+};
 //middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());

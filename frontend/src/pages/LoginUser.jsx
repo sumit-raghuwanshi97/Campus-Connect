@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useCookies } from "react-cookie";
-import axios  from 'axios';
+import axios  from '../Actions/axios.config';
 import { Link , useNavigate } from 'react-router-dom';
 import AlertBox from '../components/Popups/AlertBox';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../Actions/user';
 import { useSelector } from 'react-redux';
-const baseURl = "https://campus-connect-server-pi.vercel.app";
-
 
 function SignInUser() {
   
-  const [cookies, setCookie] = useCookies(['token']);
   const [showAlert , setShowAlert] = useState(false);
   const [alertMessage , setAlertMessage] = useState({});
   const dispatch = useDispatch();
@@ -46,7 +43,7 @@ function SignInUser() {
     console.log("Login Details Send");
     console.log(formData);
 
-    await axios.post(`${baseURl}/user/login`,formData)
+    await axios.post(`/user/login`,formData)
     .then( (response)=> {
      
     const success = response.data.success;

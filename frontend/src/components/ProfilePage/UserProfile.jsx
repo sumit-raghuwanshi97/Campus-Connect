@@ -1,18 +1,16 @@
 import React, { useEffect , useState} from 'react';
-import axios from 'axios';
+import axios from '../../Actions/axios.config';
 import { useParams } from 'react-router-dom';
 
 const UserProfile = () => {
   
   const { userId } = useParams(); 
   const [user,setUser] =useState('');
-  const token = document.cookie.split('; ').find(cookie => cookie.startsWith('token'));
-  const headers = { 'authorization' : `${token}`, };
  
   useEffect( () => {
 
   if(!user.name){
-  axios.get(`/user/${userId}` ,{headers}).then((response)=>{
+  axios.get(`/user/${userId}`).then((response)=>{
   setUser(response.data.userInfo);})
   .catch((error)=>{console.log(error);});
   }

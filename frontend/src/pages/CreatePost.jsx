@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import axios from 'axios';
+import axios from '../Actions/axios.config';
 import AlertBox from '../components/Popups/AlertBox';
 import { useNavigate } from 'react-router-dom';
-const baseURl = "https://campus-connect-server-pi.vercel.app";
 
 function CreatePost() {
   
@@ -42,22 +41,10 @@ function CreatePost() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    //getting token from cookies //include this in a function 
-    // const token = document.cookie.split('; ')
-    // .find(cookie => cookie.startsWith('token'));
-
-    // console.log(token);
-
-    // const headers = {
-    //   'Authorization' : `${token}`,
-    // };
-    //sending data to the backend through api 
-    axios.post(`${baseURl}/posts/createPost` , formData , {
+    axios.post(`/posts/createPost` , formData , {
       headers:{
-        "Content-Type" : "application/json",
-          
+        "Content-Type" : "application/json",  
       },
-      withCredentials:true,
     }).then((response)=>{
       setShowAlert(true);
     })
@@ -65,8 +52,6 @@ function CreatePost() {
       setMessage(error.response.data.message);
       setShowAlert(true);
     });
-
-
     };
 
   const containerStyle = {

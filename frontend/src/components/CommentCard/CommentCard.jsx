@@ -3,10 +3,9 @@ import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import FormatDate from './FormatDate';
 import ReplyComment from './ReplyComment';
-import axios from 'axios';
+import axios from '../../Actions/axios.config';
 import UserList from '../Popups/UserList';
 import { Avatar } from '@mui/material';
-const baseURl = "https://campus-connect-server-pi.vercel.app";
 
 const CommentCard = ({comment}) => {
   const[like , setLike] = useState(false);
@@ -18,9 +17,7 @@ const CommentCard = ({comment}) => {
   const handleLikeComment = () =>{
     setLike(!like);
     if(like){ setCount(count-1)} else{ setCount(count+1)}
-    axios.get(`${baseURl}/comments/like&unlike/${comment._id}`,{
-      withCredentials:true,
-    });
+    axios.get(`/comments/like&unlike/${comment._id}`);
   };
 
   const handleCommentReply = () =>{
@@ -30,9 +27,7 @@ const CommentCard = ({comment}) => {
 
   const handleShowCommentLikes = () => {
     setShowCommentLikes(!showCommentLikes);
-    axios.get(`${baseURl}/comments/getLikes/${comment._id}`,{
-      withCredentials:true,
-    })
+    axios.get(`/comments/getLikes/${comment._id}`)
     .then((response)=>{
      const CommentLikes = response.data.Likedby.likes;
      setCommentLikes(CommentLikes);
@@ -44,7 +39,7 @@ const CommentCard = ({comment}) => {
 
   useEffect(()=>{
 
-     axios.get(`${baseURl}/comments/getLikes/${comment._id}`,{headers})
+     axios.get(`/comments/getLikes/${comment._id}`)
     .then((response)=>{
         setLike(response.data.userLike);
         setCount(response.data.Likedby.likes.length);
