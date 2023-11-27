@@ -20,17 +20,20 @@ function PostCard({ post }) {
       <div className='px-3'>
       <Link to={`/post/${post._id}`} >
       <div className='flex justify-between'> 
-      <h2 className="text-lg font-semibold ">{post.caption}</h2>
+      <h2 className="text-lg font-semibold">{post.caption}</h2>
       <span class="flex items-center space-x-1">
+       <span class="hidden sm:inline-block">
         {
         post.status==='Selected'?
         (<span class="material-icons text-green-600"><BsPatchCheckFill size={21}/></span>)
        :(<span class="material-icons text-[#FF0000]"><AiFillCloseCircle size={21}/></span>)
         } 
+       
         <span>{post.status}</span>
+       </span>
       </span>
-      </div>
-      <div class="flex items-center text-gray-600 space-x-2 mb-3">
+      </div >
+      <div class="hidden sm:flex items-center text-gray-600 space-x-2 mb-3">
       <span class="flex items-center space-x-1">
         <span class="material-icons text-gray-600 text-xs"><GoDotFill/></span>
         <span>{post.company}</span>

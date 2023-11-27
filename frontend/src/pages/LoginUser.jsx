@@ -95,7 +95,7 @@ function SignInUser() {
   
   return (
     <div style = {containerStyle}>
-    <div className="flex justify-center items-center h-screen">
+    <div className="text-xs sm:flex justify-center items-center h-screen p-4">
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded p-8 max-w-md w-full">
         <h2 className="text-2xl font-bold mb-4 text-center">Log in</h2>
         

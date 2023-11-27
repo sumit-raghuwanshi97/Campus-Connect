@@ -26,12 +26,12 @@ function ViewPosts() {
   return (
     <div className=" bg-[#219EBC] min-h-screen p-4">
       <div className="container mx-auto p-4 ">
-        <h1 className="text-4xl font-bold mb-4 text-center">Interview Experiences</h1>
+        <h1 className="sm:text-4xl font-bold mb-4 text-center">Interview Experiences</h1>
 
-        <div className=" p-4 rounded shadow-md mb-4">
+        {/* <div className=" p-4 rounded shadow-md mb-4">
 
           <FilterPosts onFilter={handleFilter} />
-        </div>
+        </div> */}
 
         <div className="flex flex-col"> {/* Use flex-col to display cards one per row */}
           {posts.map((post) => (
