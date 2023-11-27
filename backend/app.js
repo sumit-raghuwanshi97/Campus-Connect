@@ -10,11 +10,19 @@ const cors = require('cors');
 dotenv.config();
 
 
+const allowedOrigins = ['https://campus-connect-zeta.vercel.app', 'http://localhost:3000'];
+
 const corsOptions = {
-  origin: 'https://campus-connect-zeta.vercel.app', // Replace with your allowed origin
-  // origin: 'http://localhost:3000', // Replace with your allowed origin
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true, // Enable credentials
 };
+
 //middlewares
 app.use(cors(corsOptions));
 app.use(express.json());
