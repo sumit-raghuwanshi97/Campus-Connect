@@ -11,7 +11,7 @@ dotenv.config();
 
 
 const corsOptions = {
-  origin: 'http://localhost:3000', // Replace with your allowed origin
+  origin: 'https://campus-connect-server-pi.vercel.appg', // Replace with your allowed origin
   credentials: true, // Enable credentials
 };
 //middlewares
