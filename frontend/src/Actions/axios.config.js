@@ -1,5 +1,7 @@
 import axios from 'axios';
-const SERVER_URL = "https://campus-connect-server-pi.vercel.app";
+// const SERVER_URL = "https://campus-connect-server-pi.vercel.app";
+const SERVER_URL = "http://localhost:8080";
+
 // online_server : https://campus-connect-server-pi.vercel.app
 
 const instance = axios.create({
