@@ -1,3 +1,4 @@
+import LogoutUser from '../pages/LogoutUser';
 import axios from './axios.config';
 
 export const loginUser = (email , password) => async (dispatch) => {
@@ -65,4 +66,31 @@ export const loadUser = () => async (dispatch) => {
     });
 
   }
+}
+
+
+export const logoutUser = () => async(dispatch) => {
+
+  try {
+
+    dispatch({
+      type:"LogoutUserRequest",
+    });
+
+    await axios.get(`/user/logout`);
+
+    dispatch({
+      type:"LogoutUserSuccess",
+    });
+
+  } catch (error) {
+    
+    dispatch({
+      type:"LogoutUserFailure",
+    });
+
+  }
+   
+
+   
 }

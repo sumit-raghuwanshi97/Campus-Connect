@@ -135,7 +135,12 @@ exports.getUser = async (req,res) => {
 
 
 exports.logoutUser = async (req,res) => {
-    res.status(200).cookie('token','')
+    res.status(200).cookie("token" , ' ',  {
+        httpOnly: true,
+        path: "/",
+        secure :true,
+        sameSite: 'none',
+    })
     .json({
         success : true ,
         message : "Logout Successfully",

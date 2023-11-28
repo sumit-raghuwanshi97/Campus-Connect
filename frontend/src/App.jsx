@@ -13,6 +13,7 @@ import UserProfile from './components/ProfilePage/UserProfile';
 import { useDispatch } from 'react-redux';
 import { loadUser } from './Actions/user';
 import { useSelector } from 'react-redux';
+import Resources from './pages/Resources';
 
 function App() {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function App() {
 
         <Route path="/logout" element={<Logout/>}/>
         <Route path="/user/:userId" element={<UserProfile/>}/>
+        <Route path="/resources" element={<Resources/>}/>
         {/* Add more routes as needed */}
       </Routes>
     </Router>
