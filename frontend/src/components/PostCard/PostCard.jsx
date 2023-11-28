@@ -5,6 +5,7 @@ import { AiFillCheckCircle , AiFillCloseCircle, AiOutlineUser } from 'react-icon
 import { BiSolidCommentDetail ,  BiSolidLike} from "react-icons/bi";
 import { BsPatchCheckFill } from "react-icons/bs";
 import { FaUserCircle } from 'react-icons/fa';
+import FormatDate from '../CommentCard/FormatDate';
 
 
 function PostCard({ post }) {
@@ -22,7 +23,7 @@ function PostCard({ post }) {
       <div className='flex justify-between'> 
       <h2 className="text-lg font-semibold">{post.caption}</h2>
       <span class="flex items-center space-x-1">
-       <span class="hidden sm:inline-block">
+       <span class="hidden sm:inline-block sm:flex sm:space-x-1">
         {
         post.status==='Selected'?
         (<span class="material-icons text-green-600"><BsPatchCheckFill size={21}/></span>)
@@ -43,12 +44,13 @@ function PostCard({ post }) {
         <span>{post.type}</span>
       </span>
       <span class="flex items-center space-x-1">
-        {
+        {/* {
         post.status==='Selected'?
         (<span class="material-icons text-green-600"><AiFillCheckCircle/></span>)
        :(<span class="material-icons text-[#FF0000]"><AiFillCloseCircle/></span>)
-        } 
-        <span>{post.status}</span>
+        }  */}
+        <span class="material-icons text-green-600 text-xs"><GoDotFill/></span>
+        <span>{FormatDate(post.createdAt)}</span>
       </span>
       </div>
       <span>
@@ -56,7 +58,7 @@ function PostCard({ post }) {
           <FaUserCircle size={33}/>
           <div className='mx-2'>
           <p className='mx-0' >{post.owner.name}</p>
-          <p className='text-xs text-gray-600'>{post.Role} | {post.owner.graduationYear}</p>
+          <p className='text-xs text-gray-600'>{post.owner.branch}  {post.owner.graduationYear}</p>
           </div>
         </div>
       </span>
