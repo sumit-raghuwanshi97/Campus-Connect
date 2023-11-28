@@ -10,7 +10,7 @@ const cors = require('cors');
 dotenv.config();
 
 
-const allowedOrigins = ['https://campus-connect-zeta.vercel.app', 'http://localhost:3000'];
+const allowedOrigins = ['https://campus-connect-iet.vercel.app', 'http://localhost:3000'];
 
 const corsOptions = {
   origin: (origin, callback) => {
