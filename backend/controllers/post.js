@@ -42,12 +42,16 @@ exports.getPosts = async (req,res) => {
     try {
     
         const { id } = req.params;
-        console.log(id);
+        
         if(id)
         {
             const post = await Post.findOne({ _id : id });
-            console.log(req.user);
             const isBookmarked = post.bookmark.includes(req.user._id);
+            const isOwner = await post.owner.toString() === req.user._id.toString();
+
+            console.log(post.owner);
+            console.log(req.user._id);
+            console.log(isOwner);
 
             return res
             .status(200)
@@ -55,10 +59,12 @@ exports.getPosts = async (req,res) => {
             success:true,
             isBookmarked,
             post,
+            isOwner,
             });
         }
         
         const posts = await Post.find().populate('owner');
+
         return res
         .status(200)
         .json({
@@ -273,7 +279,69 @@ exports.getLikers = async (req, res) => {
         message:"Post Bookmarked",
     });
 
-  }
+  };
 
-  
+
+ exports.UpdatePost = async (req,res) =>{
+
+    try {
+        
+        const id  = req.params.id;
+   
+        const UpdatedPostData = {
+        caption : req.body.caption,
+        company : req.body.companyName,
+        
+        role : req.body.role,
+    
+        type :req.body.type,
+    
+        status: req.body.status,
+        content : req.body.content,
+    
+        };
+    
+        
+        const post = await Post.findByIdAndUpdate(id,UpdatedPostData,{new : true});
+        await post.save();
+
+        return res.status(201)
+        .json({
+            success:true,
+            message:"Post Updated Successfully",
+        });
+
+    } catch (error) {
+
+        return res.status(404)
+        .json({
+            success:false,
+            message:"Error Loading the page"
+        })
+        
+    }
+    
+  };
+
+
+  exports.Deletepost = async (req,res) =>{
+    try {
+        console.log("delte request");
+        const postId = req.params.id ;
+        await Post.findByIdAndDelete(postId);
+    
+        res.status(200)
+        .json({
+            success:true,
+            message:"Post deleted",
+        });
+
+    } catch (error) {
+        return res.status(404)
+        .json({
+            success:true,
+            message:error.message,
+        });
+    }
+  }
 

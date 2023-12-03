@@ -1,5 +1,5 @@
 import { useState , useEffect} from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from '../../Actions/axios.config';
 import {AiOutlineHeart , AiTwotoneHeart, AiFillCheckCircle  ,AiFillCloseCircle} from "react-icons/ai";
 import {BsBookmark ,BsFillBookmarkFill} from "react-icons/bs";
@@ -12,7 +12,9 @@ import CommentCard from '../CommentCard/CommentCard';
 import UserList from '../Popups/UserList';
 
 function  PostView() {
+  const navigate = useNavigate();
   const { postId } = useParams();
+  const [isOwner , setIsOwner] = useState(false);
   const [post,setPost] = useState({});
   const [like,setLike] = useState(false);
   const [bookmark,setBookmark] = useState(false);
@@ -62,9 +64,11 @@ function  PostView() {
       .then((response) => {
         const post = response.data.post;
         const isBookmarked = response.data.isBookmarked;
+        const owner = response.data.isOwner;
         //set post 
         setPost(post);
         setBookmark(isBookmarked);
+        setIsOwner(owner)
         //set status icon
         if(post.status==="Selected") setSelected(true);
 
@@ -130,16 +134,48 @@ function  PostView() {
   };
 
 
+  const DeletePost = ()=>{
+    axios.delete(`/posts/delete/${postId}`)
+    .then((response)=>{
+      navigate('/posts');
+    })
+    .catch((e)=>{
+      console.log(e);
+    });
+
+  };
+
+  // }
+
 return (
     
     <div  class="container mx-auto p-10 bg-blue-100 shadow-lg rounded-lg mt-8">
-   <div>
+   <div className='flex justify-between items-center'>
     <Link to="/posts" className="flex">
       <div className='flex'>
       <span><BiArrowBack  size={23} class="mb-2 mr-2"/></span>
       <span>Back</span>
       </div>
     </Link>
+    <div className="flex">
+  { isOwner &&
+     ( <div className='flex space-x-2'>
+      <Link to={`/create/${post._id}`} 
+       className='bg-[#fb8500] hover:bg-[#ffb703] text-black font-bold py-1 px-5 text-md rounded inline-block'
+       >Edit
+      </Link>
+
+       <button 
+       onClick={DeletePost}
+       className='bg-[#fb8500] hover:bg-[#ffb703] text-black font-bold py-1 px-5 text-md rounded inline-block'
+       >Delete</button>
+
+      
+      </div>
+     )
+    }   
+    
+    </div>
     </div>
   
    

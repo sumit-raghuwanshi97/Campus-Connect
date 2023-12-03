@@ -3,7 +3,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const posts = require('../models/posts');
 const { isAuthenticated } = require("../middlewares/auth");
-const { CreatePost, getLikers , AddComment, getComments, bookmarkPost } = require("../controllers/post");
+const { CreatePost, getLikers , AddComment, getComments, bookmarkPost, UpdatePost, Deletepost } = require("../controllers/post");
 const { getPosts } = require("../controllers/post");
 const { likeandUnlikePost } = require("../controllers/post");
 
@@ -18,6 +18,8 @@ router.route('/getLikers/:id').get(isAuthenticated, getLikers);
 router.route('/addComment').post(isAuthenticated, AddComment);
 router.route('/getComment/:id').get(getComments);
 router.route('/bookmarkPost/:id').get(isAuthenticated, bookmarkPost);
+router.route('/update/:id').put(isAuthenticated,UpdatePost);
+router.route('/delete/:id').delete(isAuthenticated , Deletepost);
 
 
 

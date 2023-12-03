@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import axios from '../Actions/axios.config';
 import AlertBox from '../components/Popups/AlertBox';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , useParams } from 'react-router-dom';
 
-function CreatePost() {
+function CreatePost({EditPost}) {
   
   const navigate = useNavigate();
   const [showAlert , setShowAlert] = useState(false);
@@ -54,6 +54,24 @@ function CreatePost() {
     });
     };
 
+    const updatePost = (e) =>{
+     
+      e.preventDefault();
+      axios.put(`/posts/update/${postId}`, formData ,{
+        headers:{
+          "Content-Type" : "application/json",
+        },
+      }).then((response)=>{
+        setMessage("Post Updated Successfully");
+        setShowAlert(true);
+      })
+      .catch((error)=>{
+        setMessage(error.response.data.message);
+        setShowAlert(true);
+      });
+
+    }
+
   const containerStyle = {
     minHeight: 'calc(100vh - 4in)', // Adjust the height as needed
     backgroundColor: '#219EBC', // Background color for the entire viewport
@@ -86,11 +104,58 @@ function CreatePost() {
     margin: '0px auto',
   };
 
+  
+
+  const { postId } = useParams();
+  useEffect(()=>{
+    
+    if(EditPost)
+    {
+     
+      // setFormData(response.data);
+      axios.get(`/posts/getPosts/${postId}`)
+      .then((response) => {
+        console.log("run");
+
+        if(!response.data.isOwner){
+          console.log("wrong user");
+          navigate('/');
+        }
+
+        const post = response.data.post;
+        console.log(post);
+        setFormData({
+          caption : post.caption,
+          companyName : post.company ,
+          role : post.Role,
+          type : post.type,
+          status : post.status,
+          content : post.content
+        });
+
+        
+
+      })
+      .catch((error) => {
+        console.log(error);
+        navigate('/');
+
+        alert(error);
+      });
+    }
+
+  },[]);
+
   return (
     <div style={containerStyle}>
       <div style={formStyle}>
         <div className='container'>
-          <h2 style={headingStyle} className="text-2xl  font-bold mb-4">Write your post here.</h2>
+          { EditPost ?
+           (<h2 style={headingStyle} className="text-2xl  font-bold mb-4">Edit Post</h2>
+           ):
+           (<h2 style={headingStyle} className="text-2xl  font-bold mb-4">Write your post here.</h2>
+           )
+         }
           <form onSubmit={handleSubmit}>
 
             <div className="mb-4">
@@ -178,13 +243,22 @@ function CreatePost() {
               />
             </div>
 
-            <button
+            {EditPost ?
+            (<button
+              onClick={updatePost}
+              className="bg-[#fb8500] hover:bg-[#ffb703] text-black font-bold py-3 px-6 text-lg rounded-full inline-block"
+              style={buttonStyle}
+            >
+              Update Post
+            </button>)
+            :(<button
               type="submit"
               className="bg-[#fb8500] hover:bg-[#ffb703] text-black font-bold py-3 px-6 text-lg rounded-full inline-block"
               style={buttonStyle}
             >
               Create Post
-            </button>
+            </button>)
+            }
           </form>
         </div>
       </div>

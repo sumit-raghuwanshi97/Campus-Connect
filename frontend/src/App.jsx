@@ -53,6 +53,7 @@ function App() {
         <Route path="/logout" element={<Logout/>}/>
         <Route path="/user/:userId" element={<UserProfile/>}/>
         <Route path="/resources" element={<Resources/>}/>
+        <Route path='/create/:postId' element={<CreatePost EditPost={true}/>}/>
         {/* Add more routes as needed */}
       </Routes>
     </Router>

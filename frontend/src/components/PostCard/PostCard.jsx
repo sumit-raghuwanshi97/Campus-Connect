@@ -6,10 +6,14 @@ import { BiSolidCommentDetail ,  BiSolidLike} from "react-icons/bi";
 import { BsPatchCheckFill } from "react-icons/bs";
 import { FaUserCircle } from 'react-icons/fa';
 import FormatDate from '../CommentCard/FormatDate';
+import { useSelector } from 'react-redux';
 
 
 function PostCard({ post }) {
 
+  const { user } = useSelector((state) => state.user);
+
+  const userPost = post.owner._id ;
   const truncate = (input) => 
   input?.length > 300 ? `${input.substring(0, 254)}...` : input
 
@@ -70,14 +74,23 @@ function PostCard({ post }) {
       </Link> */}
       </Link>
       </div>
-      <div className='flex text-xs border-gray-400 text-gray-600 justify-left items-center py-2 px-3'>
+      <div className='flex justify-between items-center text-xs border-gray-400 text-gray-600 justify-left items-center py-2 px-3'>
         <div className='flex justify-between items-center'>
+
           <BiSolidLike size={15} className='mr-1'/>
           <div className='mr-5'>{post.likes.length} Likes</div>
           <BiSolidCommentDetail size={15} className='mr-1'/>
           <p>{post.comments.length} Comments</p>
-         
+    
         </div>
+
+       { (userPost == user._id) &&
+        <Link to={`/create/${post._id}`} 
+        className='rounded border-3px text-center bg-[#fb8500] hover:bg-[#ffb703] p-0.5 px-2 text-black'>
+              Edit Post
+        </Link>
+       }
+
       </div>
 
     </div>
