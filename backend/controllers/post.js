@@ -63,7 +63,8 @@ exports.getPosts = async (req,res) => {
             });
         }
         
-        const posts = await Post.find().populate('owner');
+        const fetchedposts = await Post.find().populate('owner');
+        const posts = fetchedposts.reverse();
 
         return res
         .status(200)

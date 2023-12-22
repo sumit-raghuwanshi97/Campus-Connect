@@ -8,20 +8,14 @@ const [button , setButton] = useState(false);
 
 
   return (
-    <div>
-       <div className='flex items-center justify-center m-5 p-2'>
-        <h1 className='text-4xl font-bold'>Resources</h1>
-       </div>
-       <div className='flex justify-center m-3 p-3'>
-       {button ? 
-       <GiProcessor onClick={()=>setButton(false)} size={300} className='text-red-700'/>
-       :
-       <GiProcessor onClick={()=>setButton(true)}size={300} className='text-blue-400'/>
-       }
-       </div>
-       <div className='flex justify-center'>
-        <h1 className='font-bold text-2xl text-gray-600'>This page is under maintainence</h1>
-       </div>
+    <div className='flex bg-[#219EBC] w-screen h-screen align-center justify-center'>
+      <img 
+      src="https://media.istockphoto.com/id/1398619494/photo/alarm-clock-and-coming-soon-written-white-lightbox-sitting-on-blue-background.jpg?s=612x612&w=0&k=20&c=tJUQDLTdBaDBwTK08qRS_VjfMdvO-YsAJOhJJwN2TT8="
+      alt="coming soon"
+      className='sm:h-auto w-auto p-20'
+     />
+      
+
     </div>
   )
 }

@@ -4,7 +4,7 @@ import axios  from '../Actions/axios.config';
 import { Link , useNavigate } from 'react-router-dom';
 import AlertBox from '../components/Popups/AlertBox';
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../Actions/user';
+import { loginUser, loginWithGoogle } from '../Actions/user';
 import { useSelector } from 'react-redux';
 
 function SignInUser() {
@@ -13,6 +13,7 @@ function SignInUser() {
   const [alertMessage , setAlertMessage] = useState({});
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.user);
+  const [cookies, setCookie] = useCookies(['']);
 
   const navigate = useNavigate();
 
@@ -36,6 +37,12 @@ function SignInUser() {
     });
   };
 
+  const signinwithgoogle = async ()=>{
+    console.log("Google Sign In");
+    dispatch(loginWithGoogle());
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(loginUser(formData.email,formData.password));
@@ -48,9 +55,9 @@ function SignInUser() {
      
     const success = response.data.success;
     const message = response.data.message;
-    // const token = response.data.token;
+    const token = response.data.token;
     
-    // setCookie('token',token , { path: '/' });
+    setCookie('token',token , { path: '/' });
 
     console.log(message);
 
@@ -143,6 +150,7 @@ function SignInUser() {
            className="text-blue-700"
           to="/register">Sign up</Link>
         </p>
+        {/* <p onClick={signinwithgoogle}>Sign in with google</p> */}
         </div>
       </form>
     </div>    

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 
 function FilterPosts({ onFilter }) {
   const [filters, setFilters] = useState({
     company: '',
     status: '',
     role: '',
-    postType: '',
+    type: '',
   });
 
   const handleFilterChange = (e) => {
@@ -13,14 +13,20 @@ function FilterPosts({ onFilter }) {
     setFilters({ ...filters, [name]: value });
   };
 
+  useEffect(() => {
+    // Trigger filter when 'filters' state changes
+    onFilter(filters);
+  }, [filters, onFilter]);
+
+
   const applyFilter = () => {
     onFilter(filters);
   };
 
   return (
-    <div className="mb-4 my-3 ">
-      <div className="flex flex-col justify-between md:flex-row space-y-2 md:space-y-0 md:space-x-2">
-        <div className="flex items-center">
+    <div className="mb-4 my-3">
+      <div className="flex flex-col items-justify-between md:flex-row space-y-2 md:space-y-0 md:space-x-2">
+        {/* <div className="flex items-center">
           <label htmlFor="company" className="mr-2 font-bold">Company:</label>
           <select
             name="company"
@@ -32,10 +38,12 @@ function FilterPosts({ onFilter }) {
             <option value="Amazon">Amazon</option>
             <option value="">none</option>
           </select>
+        </div> */}
+         <div className="flex items-center">
+        <label htmlFor="status" className="mr-2 font-bold">Filter by</label>
         </div>
-
         <div className="flex items-center">
-          <label htmlFor="status" className="mr-2 font-bold">Status:</label>
+          <label htmlFor="status" className="mr-2 font-bold"></label>
           <select
             name="status"
             onChange={handleFilterChange}
@@ -44,12 +52,12 @@ function FilterPosts({ onFilter }) {
             <option value="">Status</option>
             <option value="Selected">Selected</option>
             <option value="Not Selected">Not Selected</option>
-            <option value="Other">Other</option>
+            <option value="">None</option>
             
           </select>
         </div>
 
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <label htmlFor="role" className="mr-2 font-bold">Role:</label>
           <select
             name="role"
@@ -60,31 +68,31 @@ function FilterPosts({ onFilter }) {
             <option value="Full Time">Full Time</option>
             <option value="Intern">Intern</option>
             <option value="FT+Intern">FT+Intern</option>
-            {/* Populate role options dynamically */}
+          
           </select>
-        </div>
+        </div> */}
 
         <div className="flex items-center">
-          <label htmlFor="postType" className="mr-2 font-bold">Post Type:</label>
+          <label htmlFor="postType" className="mr-2 font-bold"></label>
           <select
-            name="postType"
+            name="type"
             onChange={handleFilterChange}
             className="border p-2 rounded-md"
           >
-            <option value=""></option>
-            <option value="opt1">Full-Time</option>
-            <option value="opt2">Intern</option>
-            <option value="opt3">Other</option>
+            <option value="">Type</option>
+            <option value="Full Time">Full Time</option>
+            <option value="Intern">Intern</option>
+            <option value="">None</option>
             {/* Populate post type options dynamically */}
           </select>
         </div>
 
-        <button
+        {/* <button
           onClick={applyFilter}
           className="bg-[#fb8500] hover:bg-[#ffb703] text-text-black font-bold py-2 px-4 rounded-full"
         >
           Apply
-        </button>
+        </button> */}
       </div>
     </div>
   );

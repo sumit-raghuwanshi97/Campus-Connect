@@ -9,7 +9,6 @@ const cors = require('cors');
 
 dotenv.config();
 
-
 const allowedOrigins = ['https://campus-connect-iet.vercel.app', 'http://localhost:3000'];
 
 const corsOptions = {
@@ -29,12 +28,12 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 
-
 //routes
 app.get('/',(req,res)=>{
   res.send("Welcome to Campus-Connect Backend Service for Api's Connection");
   res.end();
-})
+});
+
 app.use('/posts',postRoutes);
 app.use('/user',userRoutes);
 app.use('/comments',commentRoute);

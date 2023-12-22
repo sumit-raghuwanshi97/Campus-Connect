@@ -1,15 +1,18 @@
 import axios from '../Actions/axios.config';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '../Actions/user';
 
 const LogoutUser = () => {
+  const dispatch =  useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     const logout = async () => {
       try {
-        await axios.get(`/user/logout`);
-        window.location.href = "/";
+        
+        dispatch(logoutUser());
       } catch (error) {
         // Handle any logout errors here
         console.error('Logout failed:', error);

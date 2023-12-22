@@ -1,4 +1,7 @@
 const user = require('../models/user');
+const jwt = require('jsonwebtoken');
+const sendMail = require('../services/mailservice');
+const fs = require('fs');
 
 exports.RegisterUser = async (req,res) => {
 try {
@@ -31,6 +34,7 @@ try {
     };
 
     user.create(newUser);
+    //send email verification email
 
     res.status(201)
     .json({
@@ -61,9 +65,8 @@ exports.loginUser = async (req,res) => {
             message : "Invalid Username or password"
         });
     }
-
-    const user1 = await user.findOne( {email} );
     
+    const user1 = await user.findOne( {email} );
    
     if(!user1){
         return res.status(404).json({
@@ -73,7 +76,6 @@ exports.loginUser = async (req,res) => {
        
     }
     
-    console.log(user1);
     //Match password 
     const isMatch = await user1.matchPassword(password);
 
@@ -87,7 +89,16 @@ exports.loginUser = async (req,res) => {
     //generate token 
     const token = await user1.generateToken();
     const User = user1;
-     
+    
+    // if(!user1.isEmailVerified){
+
+    //     sendMail(user1.email , token);
+    //     return res.status(404).json({
+    //         success:false,
+    //         message:"Please confirm your email by clicking on the verification link we've sent to your email"
+    //     });
+    // }
+
     //send token to cookies
    
 
@@ -170,4 +181,27 @@ exports.getLoggedInUser = async (req, res) => {
     });
     
    }
+}
+
+exports.verifyEmail = async ( req, res) => {
+
+   const token = req.params.id;
+   console.log("email verification request recieved");
+
+    if(!token){
+        return res.status(401).json({
+            message : "Invalid Link"
+        });
+    }
+
+    const decoded = jwt.verify(token , process.env.JWT_SECRET);
+
+    User = await user.findById(decoded._id);
+    User.isEmailVerified = true ;
+    await User.save();
+    console.log("email verified Successfuly");
+
+    return res.redirect(`${process.env.CLIENT_URL}/login`);
+   
+
 }
