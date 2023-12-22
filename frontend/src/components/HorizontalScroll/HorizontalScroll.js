@@ -1,21 +1,19 @@
 import React, { useEffect } from 'react';
 // 
 const companiesData = [
-    { id: 1, name: 'Google' },
-    { id: 2, name: 'Microsoft' },
-    { id: 3, name: 'Apple' },
-    { id: 4, name: 'Amazon' },
-    { id: 5, name: 'Facebook' },
-    { id: 6, name: 'Netflix' },
-    { id: 7, name: 'Tesla' },
-    { id: 8, name: 'Samsung' },
-    { id: 9, name: 'IBM' },
-    { id: 10, name: 'Intel' },
-    { id: 11, name: 'Twitter' },
-    { id: 12, name: 'Adobe' },
-    { id: 13, name: 'Uber' },
-    { id: 14, name: 'LinkedIn' },
-    { id: 15, name: 'Oracle' },
+    { id: 1, name: 'NRI Fintech' },
+    { id: 2, name: 'Deutsche Bank' },
+    { id: 3, name: 'Zscalar' },
+    { id: 4, name: 'Accenture' },
+    { id: 5, name: 'Incedo' },
+    { id: 6, name: 'Barclays' },
+    { id: 7, name: 'Persistent' },
+    { id: 8, name: 'Avalara' },
+    { id: 9, name: 'Protonshub' },
+    { id: 10, name: 'ZS Associates'},
+    { id: 11, name: 'Yash Technologies' },
+    { id: 12, name: 'Impetus' },
+    { id: 13, name: 'Beghou' },
     
   ];
   

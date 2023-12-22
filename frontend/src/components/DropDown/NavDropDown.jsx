@@ -27,7 +27,7 @@ function NavDropDown(){
             </Link>
             </div>
 
-            <div className='hover:bg-[#E0F4FF]'>
+            {/* <div className='hover:bg-[#E0F4FF]'>
             <Link className='flex items-center space-x-5 mr-3 p-4'>
                 <span><MdOutlineLibraryBooks size={21}/></span>
                 <span className='pr-10'>My Posts</span>
@@ -46,7 +46,7 @@ function NavDropDown(){
                 <span><TbPencil size={21}/></span>
                 <span className='pr-10'>Edit profile</span>
             </Link>
-            </div>
+            </div> */}
 
             <div className='hover:bg-[#E0F4FF]'>
             <Link to='/logout' className='flex items-center space-x-5 mr-3 p-4'>
