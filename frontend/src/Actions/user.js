@@ -34,7 +34,6 @@ export const loginWithGoogle = () => async (dispatch) =>{
     const credential = GoogleAuthProvider.credentialFromError(error);
 
   });
-  
 
 };
 
@@ -42,12 +41,14 @@ export const loginWithGoogle = () => async (dispatch) =>{
 export const loginUser = (email , password) => async (dispatch) => {
   
     try {
-        
        dispatch({
         type:"LoginRequest"
        });
 
        const { data } = await axios.post(`/user/login` , {email , password});
+
+       const accessToken = data.token;
+       localStorage.setItem('access_token', accessToken);
 
        dispatch({
         type:"LoginSuccess",
@@ -68,11 +69,13 @@ export const loginUser = (email , password) => async (dispatch) => {
 
 export const loadUser = () => async (dispatch) => {
   try {
-
     dispatch({
         type : "LoadUserRequest",
     });
 
+    const storedAccessToken = localStorage.getItem('access_token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${storedAccessToken}`;
+    
     const { data } =  await axios.get(`/user/profile/me`);
 
     dispatch({
@@ -80,25 +83,8 @@ export const loadUser = () => async (dispatch) => {
         payload : data,
     }); 
 
-    // await axios.get('/user/profile/me')
-    // .then((response) => {
-
-    //   dispatch({
-    //     type : "LoadUserSuccess",
-    //     payload : response.data.User,
-    //   });
-
-    // })
-    // .catch((error)=>{
-    //   dispatch({
-    //     type : "LoadUserFailure",
-    //     payload : error,
-    //   });
-
-    // });
-
   } catch (error) {
-    
+    console.log("failure");
     dispatch({
         type : "LoadUserFailure",
         payload : error,
@@ -116,6 +102,7 @@ export const logoutUser = () => async(dispatch) => {
       type:"LogoutUserRequest",
     });
 
+    localStorage.setItem('access_token','');
     await axios.get(`/user/logout`);
 
     dispatch({
